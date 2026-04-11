@@ -1,0 +1,481 @@
+/* 
+  ===========================================
+  Sweet Delights Bakery - Design System
+  ===========================================
+*/
+
+:root {
+  /* Bakery Themed Soft Palette */
+  --color-cream: #FAF6F0;
+  --color-soft-pink: #F7E8E8;
+  --color-pink-hover: #EBCBCB;
+  --color-brown-light: #8B5E34;
+  --color-brown-dark: #4A3B32;
+  --color-white: #FFFFFF;
+  
+  /* Typography */
+  --font-headings: 'Playfair Display', serif;
+  --font-body: 'Outfit', sans-serif;
+  
+  /* Effects */
+  --shadow-sm: 0 4px 6px rgba(74, 59, 50, 0.05);
+  --shadow-md: 0 10px 20px rgba(74, 59, 50, 0.08);
+  --shadow-hover: 0 15px 30px rgba(74, 59, 50, 0.12);
+  --radius: 12px;
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* ===========================================
+   Global Styles
+   =========================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-cream);
+  color: var(--color-brown-dark);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-headings);
+  font-weight: 600;
+  color: var(--color-brown-dark);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 5%;
+}
+
+.section-title {
+  font-size: 2.8rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.section-title.left-align {
+  text-align: left;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: var(--color-brown-light);
+  font-size: 1.1rem;
+  margin-bottom: 3rem;
+}
+
+/* ===========================================
+   Buttons
+   =========================================== */
+.btn {
+  display: inline-block;
+  padding: 0.8rem 1.8rem;
+  border-radius: 30px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: var(--transition);
+  cursor: pointer;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background-color: var(--color-brown-dark);
+  color: var(--color-white);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-brown-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+  background-color: var(--color-soft-pink);
+  color: var(--color-brown-dark);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-pink-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-nav {
+  background-color: var(--color-brown-light);
+  color: var(--color-white);
+  padding: 0.5rem 1.2rem;
+}
+
+.btn-nav:hover {
+  background-color: var(--color-brown-dark);
+}
+
+/* ===========================================
+   Navigation
+   =========================================== */
+.navbar {
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: var(--shadow-sm);
+  padding: 1rem 0;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: var(--font-headings);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-brown-dark);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--color-brown-dark);
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: var(--transition);
+}
+
+.nav-links a:hover {
+  color: var(--color-brown-light);
+}
+
+/* ===========================================
+   Hero Section
+   =========================================== */
+.hero {
+  position: relative;
+  height: 90vh;
+  min-height: 600px;
+  background-image: url('images/hero.png');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 70px;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(74, 59, 50, 0.3), rgba(74, 59, 50, 0.5));
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  padding: 0 2rem;
+  color: var(--color-white);
+  animation: fadeIn 1s ease-out;
+}
+
+.hero-content h1 {
+  font-size: 4.5rem;
+  color: var(--color-white);
+  margin-bottom: 1rem;
+  line-height: 1.1;
+  text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+}
+
+.hero-content p {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* ===========================================
+   Products Section
+   =========================================== */
+.products-section {
+  padding: 6rem 0;
+  background-color: var(--color-cream);
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.product-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 0.6s ease-out forwards;
+}
+
+.product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-hover);
+}
+
+.product-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-bottom: 3px solid var(--color-soft-pink);
+}
+
+.product-info {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.product-title {
+  font-family: var(--font-headings);
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.product-price {
+  color: var(--color-brown-light);
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.product-desc {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+.loader {
+  text-align: center;
+  grid-column: 1 / -1;
+  font-size: 1.2rem;
+  color: var(--color-brown-light);
+  padding: 3rem;
+}
+
+/* ===========================================
+   About Section
+   =========================================== */
+.about-section {
+  padding: 6rem 0;
+  background-color: var(--color-white);
+}
+
+.about-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.about-text p {
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.about-image-wrapper {
+  position: relative;
+}
+
+.about-decoration {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-soft-pink);
+  border-radius: var(--radius);
+  z-index: 0;
+}
+
+.about-img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+}
+
+/* ===========================================
+   Reviews Section
+   =========================================== */
+.reviews-section {
+  padding: 6rem 0;
+  background-color: var(--color-soft-pink);
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.review-card {
+  background-color: var(--color-white);
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  transition: var(--transition);
+}
+
+.review-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+.stars {
+  color: #F5B041;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.review-text {
+  font-style: italic;
+  margin-bottom: 1.5rem;
+}
+
+.reviewer-name {
+  font-weight: 600;
+  color: var(--color-brown-light);
+}
+
+/* ===========================================
+   Footer / Contact Section
+   =========================================== */
+.footer {
+  background-color: var(--color-brown-dark);
+  color: var(--color-cream);
+  padding: 4rem 0 1.5rem;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.footer-info h3 {
+  color: var(--color-soft-pink);
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.footer-info p {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.contact-highlight {
+  margin-top: 2rem;
+  font-size: 1.3rem !important;
+}
+
+.phone-link {
+  color: var(--color-soft-pink);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.phone-link:hover {
+  color: var(--color-white);
+}
+
+.footer-map {
+  height: 300px;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* ===========================================
+   Animations
+   =========================================== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===========================================
+   Responsive Design
+   =========================================== */
+@media (max-width: 900px) {
+  .about-container, 
+  .footer-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .hero-content h1 {
+    font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; /* simple mobile view hides middle links */
+  }
+  
+  .section-title {
+    font-size: 2.3rem;
+  }
+  
+  .hero-content h1 {
+    font-size: 2.8rem;
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "items": [
+    {
+      "name": "Sarah Jenkins",
+      "stars": 5,
+      "text": "The sourdough bread here is simply the best in town. Crusty on the outside, soft and perfectly sour on the inside. I come here every week!"
+    },
+    {
+      "name": "Marcus T.",
+      "stars": 5,
+      "text": "Ordered a birthday cake for my daughter and it was not only incredibly beautiful but tasted amazing. Highly recommend!"
+    },
+    {
+      "name": "Emily R.",
+      "stars": 5,
+      "text": "The butter croissants transport me straight back to Paris. Absolutely flaky, buttery perfection. The staff is always wonderfully warm too."
+    }
+  ]
+}

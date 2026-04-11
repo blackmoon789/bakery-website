@@ -1,0 +1,22 @@
+{
+  "items": [
+    {
+      "name": "Strawberry Vanilla Dream Cake",
+      "price": "$45.00",
+      "image": "images/cake.png",
+      "description": "A beautifully decorated fancy strawberry and vanilla layered cake, perfect for special occasions."
+    },
+    {
+      "name": "Classic Butter Croissant",
+      "price": "$4.50",
+      "image": "images/croissant.png",
+      "description": "Fresh, buttery, and flaky croissant baked to golden perfection every morning."
+    },
+    {
+      "name": "Artisan Sourdough Loaf",
+      "price": "$8.00",
+      "image": "images/bread.png",
+      "description": "A fresh loaf of sourdough bread with a crusty exterior and soft, airy inside."
+    }
+  ]
+}

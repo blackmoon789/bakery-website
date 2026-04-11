@@ -1,0 +1,45 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# These lines map media locations to the correct generated paths
+media_folder: "images"
+public_folder: "images"
+
+collections:
+  - name: "pages"
+    label: "Page Content"
+    files:
+      - label: "Products List"
+        name: "products"
+        file: "content/products.json"
+        fields:
+          - label: "Products"
+            name: "items"
+            widget: "list"
+            fields:
+              - {label: "Name", name: "name", widget: "string"}
+              - {label: "Price", name: "price", widget: "string"}
+              - {label: "Image", name: "image", widget: "image"}
+              - {label: "Description", name: "description", widget: "text"}
+              
+      - label: "Customer Reviews"
+        name: "reviews"
+        file: "content/reviews.json"
+        fields:
+          - label: "Reviews"
+            name: "items"
+            widget: "list"
+            fields:
+              - {label: "Name", name: "name", widget: "string"}
+              - {label: "Stars (1-5)", name: "stars", widget: "number", value_type: "int", min: 1, max: 5}
+              - {label: "Review Text", name: "text", widget: "text"}
+
+      - label: "About & Contact Info"
+        name: "info"
+        file: "content/info.json"
+        fields:
+          - {label: "About Text", name: "about_text", widget: "text", required: false}
+          - {label: "Contact Email", name: "email", widget: "string", required: false}
+          - {label: "Contact Phone", name: "phone", widget: "string"}
+          - {label: "Contact Address", name: "address", widget: "string"}
