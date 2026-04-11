@@ -1,5 +1,6 @@
 # Sweet Delights Bakery CMS Website
 
+
 A modern, mobile-responsive local bakery website built with pure HTML, CSS, and Vanilla JavaScript. 
 
 This project is fully integrated with **Netlify CMS** (now Decap CMS) using a lightweight, zero-build-step architecture. All website content—including the menu, reviews, and contact information—is stored in localized JSON collections and fetched dynamically on page load. 
