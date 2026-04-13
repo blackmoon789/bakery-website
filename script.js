@@ -33,19 +33,28 @@ document.addEventListener('DOMContentLoaded', () => {
             // Data is inside the 'items' array because of our Netlify CMS list widget configuration
             data.items.forEach((product, index) => {
                 const animationDelay = index * 0.15; 
-                let imgPath = product.image;
                 
-                const cardHTML = `
-                    <div class="product-card" style="animation-delay: ${animationDelay}s">
-                        <img src="${imgPath}" alt="${product.name}" class="product-image">
-                        <div class="product-info">
-                            <h3 class="product-title">${product.name}</h3>
-                            <div class="product-price">${product.price}</div>
-                            <p class="product-desc">${product.description}</p>
-                        </div>
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.style.animationDelay = `${animationDelay}s`;
+                
+                // Sanitizing content by using textContent
+                card.innerHTML = `
+                    <img src="" alt="" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title"></h3>
+                        <div class="product-price"></div>
+                        <p class="product-desc"></p>
                     </div>
                 `;
-                productContainer.insertAdjacentHTML('beforeend', cardHTML);
+                
+                card.querySelector('.product-image').src = product.image;
+                card.querySelector('.product-image').alt = product.name;
+                card.querySelector('.product-title').textContent = product.name;
+                card.querySelector('.product-price').textContent = product.price;
+                card.querySelector('.product-desc').textContent = product.description;
+                
+                productContainer.appendChild(card);
             });
         })
         .catch(err => {
@@ -90,17 +99,31 @@ document.addEventListener('DOMContentLoaded', () => {
             allReviews.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
 
             allReviews.forEach((review) => {
-                const isLive = review.isLive ? '<span class="review-badge">Live</span>' : '';
+                const card = document.createElement('div');
+                card.className = 'review-card';
+                
                 const starsHTML = '★'.repeat(review.stars) + '☆'.repeat(5 - review.stars);
-                const cardHTML = `
-                    <div class="review-card">
-                        ${isLive}
-                        <div class="stars">${starsHTML}</div>
-                        <p class="review-text">"${review.text}"</p>
-                        <p class="reviewer-name">- ${review.name}</p>
-                    </div>
+                
+                // Base structure safely
+                card.innerHTML = `
+                    <div class="live-badge-target"></div>
+                    <div class="stars">${starsHTML}</div>
+                    <p class="review-text"></p>
+                    <p class="reviewer-name"></p>
                 `;
-                reviewsContainer.insertAdjacentHTML('beforeend', cardHTML);
+
+                // SECURE: Only use textContent for user-provided data
+                if (review.isLive) {
+                    const badge = document.createElement('span');
+                    badge.className = 'review-badge';
+                    badge.textContent = 'Live';
+                    card.querySelector('.live-badge-target').appendChild(badge);
+                }
+                
+                card.querySelector('.review-text').textContent = `"${review.text}"`;
+                card.querySelector('.reviewer-name').textContent = `- ${review.name}`;
+                
+                reviewsContainer.appendChild(card);
             });
         };
 
