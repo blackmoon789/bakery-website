@@ -3,7 +3,26 @@
  * Handles dynamic fetching of products, reviews, and site info
  */
 
+
+// Firebase Configuration (from User)
+const firebaseConfig = {
+  apiKey: "AIzaSyAoOdG1VOm6IgyogW6mZ67eZOdfYZUXldU",
+  authDomain: "bakery-database-6a963.firebaseapp.com",
+  projectId: "bakery-database-6a963",
+  storageBucket: "bakery-database-6a963.firebasestorage.app",
+  messagingSenderId: "342048149029",
+  appId: "1:342048149029:web:338467611c0af7a9f079cc"
+};
+
 document.addEventListener('DOMContentLoaded', () => {
+    
+    // Initialize Firebase if the SDK was loaded in HTML
+    let db;
+    if (window.firebaseUtils) {
+        const { initializeApp, getFirestore } = window.firebaseUtils;
+        const app = initializeApp(firebaseConfig);
+        db = getFirestore(app);
+    }
     
     // 1. Fetch Products
     const productContainer = document.getElementById('product-container');
@@ -34,29 +53,99 @@ document.addEventListener('DOMContentLoaded', () => {
             productContainer.innerHTML = '<div class="loader" style="color: red;">Could not load products. Menu items are currently unavailable.</div>';
         });
 
-    // 2. Fetch Customer Reviews
+    // 2. Fetch & Listen to Customer Reviews
     const reviewsContainer = document.getElementById('reviews-container');
     if (reviewsContainer) {
+        let staticReviews = [];
+        let liveReviews = [];
+
+        // Function to render all reviews combined
+        const renderReviews = () => {
+            reviewsContainer.innerHTML = '';
+            
+            // Combine both sources
+            const allReviews = [...staticReviews, ...liveReviews];
+            
+            if (allReviews.length === 0) {
+                reviewsContainer.innerHTML = '<div class="loader">No reviews yet. Be the first to share!</div>';
+                return;
+            }
+
+            allReviews.forEach((review) => {
+                const isLive = review.isLive ? '<span class="review-badge">Live</span>' : '';
+                const starsHTML = '★'.repeat(review.stars) + '☆'.repeat(5 - review.stars);
+                const cardHTML = `
+                    <div class="review-card">
+                        ${isLive}
+                        <div class="stars">${starsHTML}</div>
+                        <p class="review-text">"${review.text}"</p>
+                        <p class="reviewer-name">- ${review.name}</p>
+                    </div>
+                `;
+                reviewsContainer.insertAdjacentHTML('beforeend', cardHTML);
+            });
+        };
+
+        // Fetch Static Reviews from JSON
         fetch('content/reviews.json')
             .then(response => response.json())
             .then(data => {
-                reviewsContainer.innerHTML = '';
-                data.items.forEach((review) => {
-                    const starsHTML = '★'.repeat(review.stars) + '☆'.repeat(5 - review.stars);
-                    const cardHTML = `
-                        <div class="review-card">
-                            <div class="stars">${starsHTML}</div>
-                            <p class="review-text">"${review.text}"</p>
-                            <p class="reviewer-name">- ${review.name}</p>
-                        </div>
-                    `;
-                    reviewsContainer.insertAdjacentHTML('beforeend', cardHTML);
-                });
+                staticReviews = data.items.map(r => ({ ...r, isLive: false }));
+                renderReviews();
             })
             .catch(err => {
-                console.error('Error fetching reviews:', err);
-                reviewsContainer.innerHTML = '<div class="loader">Could not load customer reviews.</div>';
+                console.error('Error fetching static reviews:', err);
             });
+
+        // Listen for Live Reviews from Firestore
+        if (db) {
+            const { collection, onSnapshot, query, orderBy } = window.firebaseUtils;
+            const q = query(collection(db, "reviews"), orderBy("createdAt", "desc"));
+            
+            onSnapshot(q, (snapshot) => {
+                liveReviews = [];
+                snapshot.forEach((doc) => {
+                    liveReviews.push({ ...doc.data(), isLive: true });
+                });
+                renderReviews();
+            });
+        }
+    }
+
+    // 2b. Handle Review Form Submission
+    const reviewForm = document.getElementById('add-review-form');
+    if (reviewForm && db) {
+        reviewForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submit-review-btn');
+            
+            const name = document.getElementById('reviewer-name').value;
+            const rating = parseInt(document.getElementById('reviewer-rating').value);
+            const text = document.getElementById('reviewer-text').value;
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Posting...';
+
+            try {
+                const { collection, addDoc } = window.firebaseUtils;
+                await addDoc(collection(db, "reviews"), {
+                    name: name,
+                    stars: rating,
+                    text: text,
+                    createdAt: new Date().getTime()
+                });
+
+                // Clear form
+                reviewForm.reset();
+                alert('Thank you! Your review has been posted.');
+            } catch (error) {
+                console.error("Error adding review: ", error);
+                alert('Oops! Something went wrong. Please try again.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Post My Review';
+            }
+        });
     }
 
     // 3. Fetch Info (About text and Contact Details)

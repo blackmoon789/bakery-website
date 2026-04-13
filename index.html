@@ -14,6 +14,13 @@
 
   <!-- Include Netlify Identity Widget (Required for CMS Authentication) -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+  <!-- Firebase App & Firestore SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+    window.firebaseUtils = { initializeApp, getFirestore, collection, addDoc, onSnapshot, query, orderBy };
+  </script>
 </head>
 <body>
 
@@ -77,6 +84,27 @@
   <section id="reviews" class="reviews-section">
     <div class="container">
       <h2 class="section-title">What Our Customers Say</h2>
+      
+      <!-- Live Review Form -->
+      <div class="review-form-container">
+        <h3>Share Your Experience</h3>
+        <form id="add-review-form">
+          <div class="form-row">
+            <input type="text" id="reviewer-name" placeholder="Your Name" required>
+            <select id="reviewer-rating" required>
+              <option value="" disabled selected>Rating</option>
+              <option value="5">5 Stars - Excellent</option>
+              <option value="4">4 Stars - Very Good</option>
+              <option value="3">3 Stars - Good</option>
+              <option value="2">2 Stars - Fair</option>
+              <option value="1">1 Star - Poor</option>
+            </select>
+          </div>
+          <textarea id="reviewer-text" placeholder="Tell us what you loved about our treats..." required></textarea>
+          <button type="submit" class="btn btn-primary" id="submit-review-btn">Post My Review</button>
+        </form>
+      </div>
+
       <div class="reviews-grid" id="reviews-container">
         <!-- Reviews injected by script.js -->
         <div class="loader">Loading reviews...</div>

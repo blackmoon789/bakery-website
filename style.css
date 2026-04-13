@@ -384,6 +384,81 @@ h1, h2, h3 {
   color: var(--color-brown-light);
 }
 
+/* Review Form Styling */
+.review-form-container {
+  max-width: 600px;
+  margin: 0 auto 4rem;
+  background-color: var(--color-white);
+  padding: 2.5rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(139, 94, 52, 0.1);
+}
+
+.review-form-container h3 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  color: var(--color-brown-dark);
+}
+
+.review-form-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+}
+
+.review-form-container input,
+.review-form-container select,
+.review-form-container textarea {
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1.5px solid #eee;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  transition: var(--transition);
+  outline: none;
+}
+
+.review-form-container input:focus,
+.review-form-container select:focus,
+.review-form-container textarea:focus {
+  border-color: var(--color-brown-light);
+  box-shadow: 0 0 0 4px rgba(139, 94, 52, 0.05);
+}
+
+.review-form-container textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+.review-form-container button {
+  align-self: center;
+  margin-top: 1rem;
+  padding: 1rem 3rem;
+  font-size: 1.1rem;
+}
+
+/* Firebase Review Indicator */
+.review-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  background-color: var(--color-soft-pink);
+  color: var(--color-brown-light);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
 /* ===========================================
    Footer / Contact Section
    =========================================== */
