@@ -459,6 +459,104 @@ h1, h2, h3 {
   font-weight: 600;
 }
 
+/* Review Filters Styling */
+.review-filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  background: var(--color-white);
+  padding: 1.2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.filter-group {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filter-chip {
+  padding: 0.5rem 1.2rem;
+  border-radius: 20px;
+  background-color: var(--color-cream);
+  border: 1px solid rgba(139, 94, 52, 0.1);
+  color: var(--color-brown-dark);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.filter-chip:hover {
+  background-color: var(--color-soft-pink);
+  border-color: var(--color-brown-light);
+}
+
+.filter-chip.active {
+  background-color: var(--color-brown-dark);
+  color: var(--color-white);
+  border-color: var(--color-brown-dark);
+  box-shadow: var(--shadow-sm);
+}
+
+#review-search {
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  border: 1.5px solid #eee;
+  width: 300px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  outline: none;
+  transition: var(--transition);
+}
+
+#review-search:focus {
+  border-color: var(--color-brown-light);
+  width: 320px;
+}
+
+/* Success Banner Styling */
+.success-banner {
+  text-align: center;
+  padding: 1rem;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.success-icon {
+  width: 60px;
+  height: 60px;
+  background-color: #27AE60;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 4px 10px rgba(39, 174, 96, 0.2);
+}
+
+.success-banner h4 {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  color: #27AE60;
+}
+
+.success-banner p {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.btn-sm {
+  padding: 0.5rem 1.2rem;
+  font-size: 0.9rem;
+}
+
 /* ===========================================
    Footer / Contact Section
    =========================================== */

@@ -58,18 +58,36 @@ document.addEventListener('DOMContentLoaded', () => {
     if (reviewsContainer) {
         let staticReviews = [];
         let liveReviews = [];
+        let currentRatingFilter = 'all';
+        let currentSearchTerm = '';
 
-        // Function to render all reviews combined
+        // Function to render all reviews combined with filtering
         const renderReviews = () => {
             reviewsContainer.innerHTML = '';
             
             // Combine both sources
-            const allReviews = [...staticReviews, ...liveReviews];
+            let allReviews = [...staticReviews, ...liveReviews];
             
+            // Apply Rating Filter
+            if (currentRatingFilter !== 'all') {
+                allReviews = allReviews.filter(r => r.stars === parseInt(currentRatingFilter));
+            }
+
+            // Apply Search/Topic Filter
+            if (currentSearchTerm.trim() !== '') {
+                const term = currentSearchTerm.toLowerCase();
+                allReviews = allReviews.filter(r => 
+                    r.name.toLowerCase().includes(term) || 
+                    r.text.toLowerCase().includes(term)
+                );
+            }
+
             if (allReviews.length === 0) {
-                reviewsContainer.innerHTML = '<div class="loader">No reviews yet. Be the first to share!</div>';
+                reviewsContainer.innerHTML = '<div class="loader">No reviews match your selection.</div>';
                 return;
             }
+
+            allReviews.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
 
             allReviews.forEach((review) => {
                 const isLive = review.isLive ? '<span class="review-badge">Live</span>' : '';
@@ -85,6 +103,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 reviewsContainer.insertAdjacentHTML('beforeend', cardHTML);
             });
         };
+
+        // Event Listeners for Filters
+        const filterChips = document.querySelectorAll('.filter-chip');
+        filterChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                filterChips.forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                currentRatingFilter = chip.getAttribute('data-rating');
+                renderReviews();
+            });
+        });
+
+        const searchInput = document.getElementById('review-search');
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                currentSearchTerm = e.target.value;
+                renderReviews();
+            });
+        }
 
         // Fetch Static Reviews from JSON
         fetch('content/reviews.json')
@@ -135,9 +172,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     createdAt: new Date().getTime()
                 });
 
-                // Clear form
-                reviewForm.reset();
-                alert('Thank you! Your review has been posted.');
+                // Clear form and show custom success message
+                reviewForm.style.display = 'none';
+                document.querySelector('.review-form-container h3').style.display = 'none';
+                document.getElementById('review-success-message').style.display = 'block';
+                
             } catch (error) {
                 console.error("Error adding review: ", error);
                 alert('Oops! Something went wrong. Please try again.');
