@@ -4,15 +4,7 @@
  */
 
 
-// Firebase Configuration (from User)
-const firebaseConfig = {
-  apiKey: "AIzaSyAoOdG1VOm6IgyogW6mZ67eZOdfYZUXldU",
-  authDomain: "bakery-database-6a963.firebaseapp.com",
-  projectId: "bakery-database-6a963",
-  storageBucket: "bakery-database-6a963.firebasestorage.app",
-  messagingSenderId: "342048149029",
-  appId: "1:342048149029:web:338467611c0af7a9f079cc"
-};
+
 
 document.addEventListener('DOMContentLoaded', () => {
     
